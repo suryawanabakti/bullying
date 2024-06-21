@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import { IconEdit, IconHome, IconUsers } from "@tabler/icons-react";
+import { IconEdit, IconHome, IconReport, IconUsers } from "@tabler/icons-react";
 
 export default function NavLinkUser() {
     return (
@@ -19,14 +19,26 @@ export default function NavLinkUser() {
             </li>
             <li
                 className={`nav-item ${
-                    route().current("user.lapor*") && "active"
+                    route().current("user.lapor.index") && "active"
+                }`}
+            >
+                <Link className="nav-link" href={route("user.lapor.index")}>
+                    <span className="nav-link-icon d-md-none d-lg-inline-block">
+                        <IconReport className="icon" />
+                    </span>
+                    <span className="nav-link-title">Daftar Laporan</span>
+                </Link>
+            </li>
+            <li
+                className={`nav-item ${
+                    route().current("user.lapor.create") && "active"
                 }`}
             >
                 <Link className="nav-link" href={route("user.lapor.create")}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                         <IconEdit className="icon" />
                     </span>
-                    <span className="nav-link-title">Lapor</span>
+                    <span className="nav-link-title">Buat Laporan</span>
                 </Link>
             </li>
         </ul>

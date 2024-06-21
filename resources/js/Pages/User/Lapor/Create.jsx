@@ -45,9 +45,11 @@ export default function Create({ auth }) {
                                 onChange={(e) =>
                                     setData("jenis_kasus", e.target.value)
                                 }
+                                value={data.jenis_kasus}
                                 name="jeniskasus"
                                 id="jeniskasus"
                                 className="form-select"
+                                required
                             >
                                 <option value="">Pilih Kasus</option>
                                 <option value="bully">Kasus bully-ing</option>
@@ -61,6 +63,7 @@ export default function Create({ auth }) {
                                 Nama Pelaku
                             </label>
                             <AsyncSelect
+                                required
                                 isClearable={true}
                                 loadOptions={loadOptions}
                                 onChange={({ value }) =>
@@ -73,6 +76,8 @@ export default function Create({ auth }) {
                                 Deskripsi
                             </label>
                             <textarea
+                                required
+                                value={data.deskripsi}
                                 id="deskripsi"
                                 className="form-control"
                                 onChange={(e) =>
@@ -96,7 +101,11 @@ export default function Create({ auth }) {
                         </div>
                     </div>
                     <div className="card-footer">
-                        <button className="btn btn-primary" type="submit">
+                        <button
+                            className="btn btn-primary"
+                            type="submit"
+                            disabled={processing}
+                        >
                             Kirim
                         </button>
                     </div>

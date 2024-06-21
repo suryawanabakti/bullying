@@ -215,9 +215,9 @@ export default function Register() {
                             </div>
                         </form>
                         <div className="text-center text-muted mt-3">
-                            Belum punya akun ?{" "}
-                            <Link href="/register" tabIndex={-1}>
-                                Klik disini
+                            Sudah punya akun ?{" "}
+                            <Link href="/login" tabIndex={-1}>
+                                Login disini
                             </Link>
                         </div>
                     </div>
@@ -227,8 +227,7 @@ export default function Register() {
                     <div
                         className="bg-cover h-100 min-vh-100"
                         style={{
-                            backgroundImage:
-                                "url(./static/photos/finances-us-dollars-and-bitcoins-currency-money-2.jpg)",
+                            backgroundImage: "url(/bully.jpeg)",
                         }}
                     />
                 </div>

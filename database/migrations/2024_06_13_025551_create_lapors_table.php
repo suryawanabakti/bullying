@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lapor', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('jenis_kasus');
             $table->unsignedBigInteger('siswa_id')->references('id')->on('siswa')->cascadeOnDelete();
             $table->string('deskripsi');

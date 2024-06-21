@@ -6,17 +6,17 @@ import toast from "react-hot-toast";
 export default function Index({ auth, lapor }) {
     return (
         <AuthenticatedLayout user={auth.user}>
-            <Head title="Laporan" />
+            <Head title="Index" />
             <div className="card">
                 <div className="card-header">
-                    <h4 className="card-title">Laporan</h4>
+                    <h4 className="card-title">Daftar Laporan</h4>
                 </div>
                 <div className="card-body">
                     <table className="table table-stripped table-hover">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Pelapor</th>
+
                                 <th>Jenis kasus</th>
                                 <th>Siswa Pelaku</th>
                                 <th>Deskripsi</th>
@@ -44,43 +44,25 @@ export default function Index({ auth, lapor }) {
                                                     <li>
                                                         <Link
                                                             className="dropdown-item"
-                                                            method="patch"
+                                                            method="delete"
                                                             as="button"
                                                             href={route(
-                                                                "admin.lapor.terima",
+                                                                "admin.lapor.destroy",
                                                                 data.id
                                                             )}
                                                             onSuccess={() =>
                                                                 toast.success(
-                                                                    "Berhasil menerima laporan"
+                                                                    "Berhasil hapus lapor"
                                                                 )
                                                             }
                                                         >
-                                                            Terima
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            className="dropdown-item"
-                                                            method="patch"
-                                                            as="button"
-                                                            href={route(
-                                                                "admin.lapor.selesai",
-                                                                data.id
-                                                            )}
-                                                            onSuccess={() =>
-                                                                toast.success(
-                                                                    "Berhasil menyelesaikan laporan"
-                                                                )
-                                                            }
-                                                        >
-                                                            Selesai
+                                                            Batalkan
                                                         </Link>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </td>
-                                        <td>{data.user.name}</td>
+
                                         <td>{data.jenis_kasus}</td>
                                         <td>{data.siswa.nama}</td>
                                         <td>{data.deskripsi}</td>

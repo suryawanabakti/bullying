@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/lapor", [LaporController::class, 'index'])->name('admin.lapor.index');
     Route::patch("/lapor/{lapor}/terima", [LaporController::class, 'terima'])->name('admin.lapor.terima');
     Route::patch("/lapor/{lapor}/selesai", [LaporController::class, 'selesai'])->name('admin.lapor.selesai');
+    Route::delete("/lapor/{lapor}/delete", [LaporController::class, 'destroy'])->name('admin.lapor.destroy');
     Route::resource("/user/lapor", UserLaporController::class)->names("user.lapor");
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
