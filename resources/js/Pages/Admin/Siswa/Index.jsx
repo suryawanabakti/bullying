@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function Index({ auth, siswa }) {
     return (
@@ -8,10 +8,19 @@ export default function Index({ auth, siswa }) {
             <div className="card">
                 <div className="card-header">
                     <h4 className="card-title">Siswa</h4>
+                    <div className="card-actions">
+                        <Link
+                            href={route("admin.siswa.create")}
+                            className="btn btn-primary"
+                        >
+                            Tambah Siswa
+                        </Link>
+                    </div>
                 </div>
                 <table className="table cardtable table-striped table-hover">
                     <thead>
                         <tr>
+                            <th>Nis</th>
                             <th>Nama</th>
                             <th>WA Ortu</th>
                         </tr>
@@ -20,8 +29,22 @@ export default function Index({ auth, siswa }) {
                         {siswa.map((data) => {
                             return (
                                 <tr key={data.id}>
+                                    <td>{data.nis}</td>
                                     <td>{data.nama}</td>
                                     <td>{data.no_wa}</td>
+                                    <td>
+                                        <Link
+                                            method="delete"
+                                            as="button"
+                                            href={route(
+                                                "admin.siswa.destroy",
+                                                data.id
+                                            )}
+                                            className="btn btn-primary"
+                                        >
+                                            Hapus
+                                        </Link>
+                                    </td>
                                 </tr>
                             );
                         })}

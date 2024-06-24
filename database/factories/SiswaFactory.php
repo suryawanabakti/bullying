@@ -18,7 +18,8 @@ class SiswaFactory extends Factory
     {
         return [
             "nama" => fake()->name(),
-            "no_wa" => fake()->phoneNumber()
+            "no_wa" => fake()->phoneNumber(),
+            "nis" => fake()->userName(),
         ];
     }
 }

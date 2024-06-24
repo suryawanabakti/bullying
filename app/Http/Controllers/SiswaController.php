@@ -23,7 +23,7 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        return inertia("Admin/Siswa/Create");
     }
 
     /**
@@ -31,7 +31,9 @@ class SiswaController extends Controller
      */
     public function store(StoreSiswaRequest $request)
     {
-        //
+        $data = $request->all();
+        Siswa::create($data);
+        return redirect()->route("admin.siswa.index");
     }
 
     /**
@@ -63,6 +65,7 @@ class SiswaController extends Controller
      */
     public function destroy(Siswa $siswa)
     {
-        //
+        $siswa->delete();
+        return back();
     }
 }
