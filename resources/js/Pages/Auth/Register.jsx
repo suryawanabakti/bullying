@@ -67,6 +67,23 @@ export default function Register() {
                                 )}
                             </div>
                             <div className="mb-3">
+                                <label className="form-label">Nomor WA</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    placeholder="Your NO. WA"
+                                    autoComplete="no_wa"
+                                    onChange={(e) =>
+                                        setData("no_wa", e.target.value)
+                                    }
+                                />
+                                {errors.no_wa && (
+                                    <small className="text-danger">
+                                        {errors.no_wa}
+                                    </small>
+                                )}
+                            </div>
+                            <div className="mb-3">
                                 <label className="form-label">
                                     Email address
                                 </label>

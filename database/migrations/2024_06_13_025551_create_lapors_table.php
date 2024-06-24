@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('jenis_kasus');
-            $table->unsignedBigInteger('siswa_id')->references('id')->on('siswa')->cascadeOnDelete();
+            $table->unsignedBigInteger('pelaku_id')->references('id')->on('users')->cascadeOnDelete();
             $table->string('deskripsi');
             $table->string('bukti');
             $table->string('status')->default('proses');

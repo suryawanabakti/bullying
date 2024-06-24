@@ -64,7 +64,7 @@ export default function Index({ auth, lapor }) {
                                         </td>
 
                                         <td>{data.jenis_kasus}</td>
-                                        <td>{data.siswa.nama}</td>
+                                        <td>{data.siswa.name}</td>
                                         <td>{data.deskripsi}</td>
                                         <td>
                                             <a

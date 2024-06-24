@@ -26,21 +26,10 @@ export default function NavLinkAdmin() {
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                         <IconUsers className="icon" />
                     </span>
-                    <span className="nav-link-title">Pelapor</span>
-                </Link>
-            </li>
-            <li
-                className={`nav-item ${
-                    route().current("admin.siswa*") && "active"
-                }`}
-            >
-                <Link className="nav-link" href={route("admin.siswa.index")}>
-                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                        <IconUsers className="icon" />
-                    </span>
                     <span className="nav-link-title">Siswa</span>
                 </Link>
             </li>
+
             <li
                 className={`nav-item ${
                     route().current("admin.lapor*") && "active"

@@ -9,9 +9,12 @@ export default function Index({ auth, siswa }) {
                 <div className="card-header">
                     <h4 className="card-title">Siswa</h4>
                     <div className="card-actions">
+                        <button className="btn btn-warning me-2">
+                            Import Siswa
+                        </button>
                         <Link
                             href={route("admin.siswa.create")}
-                            className="btn btn-primary"
+                            className="btn btn-primary me-2"
                         >
                             Tambah Siswa
                         </Link>

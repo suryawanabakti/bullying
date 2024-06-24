@@ -29,60 +29,63 @@ export default function Index({ auth, lapor }) {
                                 return (
                                     <tr key={data.id}>
                                         <td>
-                                            <div className="dropdown">
-                                                <IconDotsVertical
-                                                    className="icon"
-                                                    id="dropdownMenuButton1"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                />
+                                            {auth.user.roles[0].name ==
+                                                "guru bk" && (
+                                                <div className="dropdown">
+                                                    <IconDotsVertical
+                                                        className="icon"
+                                                        id="dropdownMenuButton1"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                    />
 
-                                                <ul
-                                                    className="dropdown-menu"
-                                                    aria-labelledby="dropdownMenuButton1"
-                                                >
-                                                    <li>
-                                                        <Link
-                                                            className="dropdown-item"
-                                                            method="patch"
-                                                            as="button"
-                                                            href={route(
-                                                                "admin.lapor.terima",
-                                                                data.id
-                                                            )}
-                                                            onSuccess={() =>
-                                                                toast.success(
-                                                                    "Berhasil menerima laporan"
-                                                                )
-                                                            }
-                                                        >
-                                                            Terima
-                                                        </Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link
-                                                            className="dropdown-item"
-                                                            method="patch"
-                                                            as="button"
-                                                            href={route(
-                                                                "admin.lapor.selesai",
-                                                                data.id
-                                                            )}
-                                                            onSuccess={() =>
-                                                                toast.success(
-                                                                    "Berhasil menyelesaikan laporan"
-                                                                )
-                                                            }
-                                                        >
-                                                            Selesai
-                                                        </Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                                    <ul
+                                                        className="dropdown-menu"
+                                                        aria-labelledby="dropdownMenuButton1"
+                                                    >
+                                                        <li>
+                                                            <Link
+                                                                className="dropdown-item"
+                                                                method="patch"
+                                                                as="button"
+                                                                href={route(
+                                                                    "admin.lapor.terima",
+                                                                    data.id
+                                                                )}
+                                                                onSuccess={() =>
+                                                                    toast.success(
+                                                                        "Berhasil menerima laporan"
+                                                                    )
+                                                                }
+                                                            >
+                                                                Terima
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link
+                                                                className="dropdown-item"
+                                                                method="patch"
+                                                                as="button"
+                                                                href={route(
+                                                                    "admin.lapor.selesai",
+                                                                    data.id
+                                                                )}
+                                                                onSuccess={() =>
+                                                                    toast.success(
+                                                                        "Berhasil menyelesaikan laporan"
+                                                                    )
+                                                                }
+                                                            >
+                                                                Selesai
+                                                            </Link>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </td>
                                         <td>{data.user.name}</td>
                                         <td>{data.jenis_kasus}</td>
-                                        <td>{data.siswa.nama}</td>
+                                        <td>{data.siswa.name}</td>
                                         <td>{data.deskripsi}</td>
                                         <td>
                                             <a

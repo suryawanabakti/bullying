@@ -16,6 +16,6 @@ class Lapor extends Model
     }
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsTo(User::class, 'pelaku_id', 'id');
     }
 }
