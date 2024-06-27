@@ -22,7 +22,10 @@ class StoreLaporRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "jenis_kasus" => 'required',
+            "siswa_id" => 'required',
+            "deskripsi" => 'required',
+            "gambar" => 'required',
         ];
     }
 }

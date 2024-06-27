@@ -67,6 +67,24 @@ export default function Index({ auth, lapor }) {
                                                                 method="patch"
                                                                 as="button"
                                                                 href={route(
+                                                                    "admin.lapor.tolak",
+                                                                    data.id
+                                                                )}
+                                                                onSuccess={() =>
+                                                                    toast.success(
+                                                                        "Berhasil menolak laporan"
+                                                                    )
+                                                                }
+                                                            >
+                                                                Tolak
+                                                            </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link
+                                                                className="dropdown-item"
+                                                                method="patch"
+                                                                as="button"
+                                                                href={route(
                                                                     "admin.lapor.selesai",
                                                                     data.id
                                                                 )}

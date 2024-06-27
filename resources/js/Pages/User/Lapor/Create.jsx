@@ -11,7 +11,7 @@ export default function Create({ auth }) {
         // }, 2000);
     };
 
-    const { data, setData, post, processing, reset } = useForm({
+    const { data, setData, post, processing, reset, errors } = useForm({
         jenis_kasus: "",
         siswa_id: "",
         deskripsi: "",
@@ -57,6 +57,11 @@ export default function Create({ auth }) {
                                     Kekerasan seksual
                                 </option>
                             </select>
+                            {errors.jenis_kasus && (
+                                <small className="text-danger">
+                                    {errors.jenis_kasus}
+                                </small>
+                            )}
                         </div>
                         <div className="mb-3">
                             <label htmlFor="" className="form-label">
@@ -70,6 +75,11 @@ export default function Create({ auth }) {
                                     setData("siswa_id", value)
                                 }
                             />
+                            {errors.siswa_id && (
+                                <small className="text-danger">
+                                    {errors.siswa_id}
+                                </small>
+                            )}
                         </div>
                         <div className="mb-3">
                             <label htmlFor="deskripsi" className="form-label">
@@ -86,6 +96,11 @@ export default function Create({ auth }) {
                                 defaultValue={data.deskripsi}
                                 placeholder="Isi Deskripsi...."
                             ></textarea>
+                            {errors.deskripsi && (
+                                <small className="text-danger">
+                                    {errors.deskripsi}
+                                </small>
+                            )}
                         </div>
                         <div className="mb-3">
                             <label htmlFor="gambar" className="form-label">
@@ -98,6 +113,11 @@ export default function Create({ auth }) {
                                     setData("gambar", e.target.files[0])
                                 }
                             />
+                            {errors.gambar && (
+                                <small className="text-danger">
+                                    {errors.gambar}
+                                </small>
+                            )}
                         </div>
                     </div>
                     <div className="card-footer">

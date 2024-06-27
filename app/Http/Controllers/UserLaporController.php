@@ -14,7 +14,7 @@ class UserLaporController extends Controller
      */
     public function index()
     {
-        $lapor = Lapor::with('siswa', 'user')->orderBy('created_at', 'desc')->get();
+        $lapor = Lapor::with('siswa', 'user')->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return inertia("User/Lapor/Index", [
             "lapor" => $lapor
         ]);
@@ -33,7 +33,6 @@ class UserLaporController extends Controller
      */
     public function store(StoreLaporRequest $request)
     {
-
         Lapor::create([
             "user_id" => auth()->id(),
             "jenis_kasus" => $request->jenis_kasus,

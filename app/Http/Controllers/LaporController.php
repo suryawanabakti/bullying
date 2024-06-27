@@ -19,8 +19,13 @@ class LaporController extends Controller
     public function terima(Lapor $lapor)
     {
         FonnteService::sendWa($lapor->siswa->no_wa, "Yth. Bpk/Ibu Orangtua Siswa bernama {$lapor->siswa->nama} \n\nUntuk menjalin komunikasi yang baik antara Orangtua siswa/i dan Pihak Sekolah dalam mendidik dan melatih anak ke arah yang lebih baik, maka kami mohon kehadiran Bapak/Ibu besok di sekolah pukul 09.00 WITA.\nDemikian Pemberitahuan ini kami sampaikan ke orangtua siswa/i.Terima kasih atas perhatian dan kerja samanya.");
-
         $lapor->update(["status" => "terima"]);
+        return back();
+    }
+
+    public function tolak(Lapor $lapor)
+    {
+        $lapor->update(["status" => "tolak"]);
         return back();
     }
 
