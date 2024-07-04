@@ -10,7 +10,7 @@ class LaporController extends Controller
 {
     public function index()
     {
-        $lapor = Lapor::with('siswa', 'user')->orderBy('created_at', 'desc')->get();
+        $lapor = Lapor::with('siswa', 'user.kelas', 'user.jurusan', 'siswa.kelas', 'siswa.jurusan')->orderBy('created_at', 'desc')->get();
         return inertia("Admin/Laporan/Index", [
             "lapor" => $lapor
         ]);
@@ -29,9 +29,10 @@ class LaporController extends Controller
         return back();
     }
 
-    public function selesai(Lapor $lapor)
+    public function selesai(Lapor $lapor, Request $request)
     {
-        $lapor->update(["status" => "selesai"]);
+
+        $lapor->update(["status" => "selesai", "keterangan" => $request->keterangan]);
         return back();
     }
 

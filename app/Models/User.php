@@ -42,6 +42,17 @@ class User extends Authenticatable
         return $this->hasRole(['admin', 'super']);
     }
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
+    }
+
+
     protected $fillable = [
         'name',
         'no_wa',
@@ -51,6 +62,8 @@ class User extends Authenticatable
         'date_of_birth',
         'gender',
         'photo',
+        'kelas_id',
+        'jurusan_id',
     ];
 
     /**

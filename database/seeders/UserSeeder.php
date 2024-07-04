@@ -19,6 +19,8 @@ class UserSeeder extends Seeder
             'email' => 'super@super',
             'password' => Hash::make("password"),
             'gender' => 'male',
+            'kelas_id' => 1,
+            'jurusan_id' => 1,
             'date_of_birth' => now()->format('Y-m-d'),
         ])->assignRole('super');
 
@@ -27,6 +29,8 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin',
             'password' => Hash::make("password"),
             'gender' => 'male',
+            'kelas_id' => 1,
+            'jurusan_id' => 1,
             'date_of_birth' => now()->format('Y-m-d'),
         ])->assignRole('admin');
 
@@ -35,6 +39,8 @@ class UserSeeder extends Seeder
             'email' => 'gurubk@mail.com',
             'password' => Hash::make("password"),
             'gender' => 'male',
+            'kelas_id' => 1,
+            'jurusan_id' => 1,
             'date_of_birth' => now()->format('Y-m-d'),
         ])->assignRole('guru bk');
     }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('no_wa')->nullable();
             $table->string('email')->unique();
+            $table->unsignedBigInteger('kelas_id')->references('id')->on('kelas')->cascadeOnDelete();
+            $table->unsignedBigInteger('jurusan_id')->references('id')->on('jurusans')->cascadeOnDelete();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

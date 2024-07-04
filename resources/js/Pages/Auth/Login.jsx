@@ -32,138 +32,106 @@ export default function Login({ status, canResetPassword }) {
                     {status}
                 </div>
             )}
-            <div className="row g-0 flex-fill">
-                <div className="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
-                    <div className="container container-tight my-5 px-lg-5">
-                        <div className="text-center mb-4">
-                            <Link
-                                href="/"
-                                className="navbar-brand navbar-brand-autodark"
-                            >
-                                SISTEM NOTIFIKASI PELAPORAN KASUS BULLYING{" "}
-                                <br /> DAN KEKERASAN SEKSUAL
-                            </Link>
-                        </div>
-                        <h2 className="h3 text-center mb-3">
-                            Masuk ke akun anda
-                        </h2>
-                        <form onSubmit={submit}>
-                            <div className="mb-3">
-                                <label className="form-label">
-                                    Email address
-                                </label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    placeholder="your@email.com"
-                                    autoComplete="email"
-                                    onChange={(e) =>
-                                        setData("email", e.target.value)
-                                    }
-                                />
-                                {errors.email && (
-                                    <small className="text-danger">
-                                        {errors.email}
-                                    </small>
-                                )}
-                            </div>
-                            <div className="mb-2">
-                                <label className="form-label">
-                                    Password
-                                    <span className="form-label-description">
-                                        <Link
-                                            tabIndex={-1}
-                                            href={route("password.request")}
-                                        >
-                                            I forgot password
-                                        </Link>
-                                    </span>
-                                </label>
-                                <div className="input-group input-group-flat">
+            <div className="page page-center">
+                <div className="container container-tight py-4">
+                    <div className="text-center mb-4">
+                        <a
+                            href="."
+                            className="navbar-brand navbar-brand-autodark"
+                        >
+                            <img
+                                src="https://yt3.googleusercontent.com/ytc/AIdro_nhE6OZ6cNWyZVeWFjYN9afSK3cExy4YPQbJsX-rbvUjQ=s900-c-k-c0x00ffffff-no-rj"
+                                width={180}
+                                alt="Tabler"
+                            />
+                        </a>
+                    </div>
+                    <div className="card card-md">
+                        <div className="card-body">
+                            <h2 className="h2 text-center mb-4">
+                                Masuk ke akun anda
+                            </h2>
+                            <form onSubmit={submit}>
+                                <div className="mb-3">
+                                    <label className="form-label">NIS</label>
                                     <input
-                                        type={`${
-                                            !data.show_password
-                                                ? "password"
-                                                : "text"
-                                        }`}
+                                        type="text"
                                         className="form-control"
-                                        placeholder="Your password"
+                                        placeholder="Masukkan nis anda..."
                                         autoComplete="off"
                                         onChange={(e) =>
-                                            setData("password", e.target.value)
+                                            setData("email", e.target.value)
                                         }
                                     />
-                                    <span className="input-group-text">
-                                        <a
-                                            href="#"
-                                            tabIndex={-1}
-                                            className="link-secondary"
-                                            onClick={() =>
+                                    {errors.email && (
+                                        <small className="text-danger">
+                                            {errors.email}
+                                        </small>
+                                    )}
+                                </div>
+                                <div className="mb-2">
+                                    <label className="form-label">
+                                        Password
+                                    </label>
+                                    <div className="input-group input-group-flat">
+                                        <input
+                                            type={`${
+                                                !data.show_password
+                                                    ? "password"
+                                                    : "text"
+                                            }`}
+                                            className="form-control"
+                                            placeholder="Your password"
+                                            autoComplete="off"
+                                            onChange={(e) =>
                                                 setData(
-                                                    "show_password",
-                                                    !data.show_password
+                                                    "password",
+                                                    e.target.value
                                                 )
                                             }
-                                        >
-                                            {/* Download SVG icon from http://tabler-icons.io/i/eye */}
-                                            {!data.show_password ? (
-                                                <IconEye className="icon" />
-                                            ) : (
-                                                <IconEyeOff className="icon" />
-                                            )}
-                                        </a>
-                                    </span>
+                                        />
+                                        <span className="input-group-text">
+                                            <a
+                                                href="#"
+                                                tabIndex={-1}
+                                                className="link-secondary"
+                                                onClick={() =>
+                                                    setData(
+                                                        "show_password",
+                                                        !data.show_password
+                                                    )
+                                                }
+                                            >
+                                                {/* Download SVG icon from http://tabler-icons.io/i/eye */}
+                                                {!data.show_password ? (
+                                                    <IconEye className="icon" />
+                                                ) : (
+                                                    <IconEyeOff className="icon" />
+                                                )}
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
-                                {errors.password && (
-                                    <small className="text-danger">
-                                        {errors.password}
-                                    </small>
-                                )}
-                            </div>
-                            <div className="mb-2">
-                                <label className="form-check">
-                                    <input
-                                        type="checkbox"
-                                        tabIndex={-1}
-                                        className="form-check-input"
-                                        name="remember"
-                                        value={1}
-                                        onChange={(e) =>
-                                            setData("remember", e.target.value)
-                                        }
-                                    />
-                                    <span className="form-check-label">
-                                        Remember me on this device
-                                    </span>
-                                </label>
-                            </div>
-                            <div className="form-footer">
-                                <button
-                                    type="submit"
-                                    className={`btn btn-primary w-100 ${
-                                        processing ? "btn-loading" : ""
-                                    }`}
-                                >
-                                    Sign in
-                                </button>
-                            </div>
-                        </form>
-                        <div className="text-center text-muted mt-3">
-                            Belum punya akun ?{" "}
-                            <Link href="/register" tabIndex={-1}>
-                                Klik disini
-                            </Link>
+
+                                <div className="form-footer">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary w-100"
+                                        disabled={processing}
+                                    >
+                                        Masuk
+                                    </button>
+                                </div>
+                            </form>
                         </div>
+                        <div className="hr-text">Atau</div>
                     </div>
-                </div>
-                <div className="col-12 col-lg-6 col-xl-8 d-none d-lg-block">
-                    {/* Photo */}
-                    <div
-                        className="bg-cover h-100 min-vh-100"
-                        style={{
-                            backgroundImage: "url(/bully.jpeg)",
-                        }}
-                    />
+                    <div className="text-center text-secondary mt-3">
+                        Belum punya akun ?
+                        <Link href="/register" tabIndex={-1}>
+                            Daftar disini
+                        </Link>
+                    </div>
                 </div>
             </div>
         </GuestLayout>

@@ -267,29 +267,6 @@ export default function Navigation({ user }) {
                             {user.roles[0].name == "admin" && <NavLinkAdmin />}
                             {user.roles[0].name == "user" && <NavLinkUser />}
                             {user.roles[0].name == "guru bk" && <NavLinkBk />}
-
-                            <div className="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
-                                <form
-                                    action="./"
-                                    method="get"
-                                    autoComplete="off"
-                                    noValidate=""
-                                >
-                                    <div className="input-icon">
-                                        <span className="input-icon-addon">
-                                            {/* Download SVG icon from http://tabler-icons.io/i/search */}
-                                            <IconSearch className="icon" />
-                                        </span>
-                                        <input
-                                            type="text"
-                                            defaultValue=""
-                                            className="form-control"
-                                            placeholder="Search…"
-                                            aria-label="Search in website"
-                                        />
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </div>

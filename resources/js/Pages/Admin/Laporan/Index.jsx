@@ -1,9 +1,37 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import { IconDotsVertical } from "@tabler/icons-react";
 import toast from "react-hot-toast";
-
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { useState } from "react";
 export default function Index({ auth, lapor }) {
+    const [show, setShow] = useState(false);
+    const { data, setData, patch } = useForm({
+        keterangan: "",
+        lapor_id: "",
+    });
+
+    const handleClose = () => setShow(false);
+    const handleShow = (data) => {
+        console.log(data);
+        setData("lapor_id", data.id);
+        setShow(true);
+    };
+    const selesaikanLaporan = (e) => {
+        e.preventDefault();
+        patch(route("admin.lapor.selesai", data.lapor_id), {
+            onSuccess: () => {
+                toast.success("Berhasil menyelesaikan laporan");
+                setShow(false);
+            },
+            onError: () => {
+                toast.error("Gagal menyelesaikan laporan");
+            },
+        });
+
+        console.log("data", data);
+    };
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Laporan" />
@@ -22,6 +50,7 @@ export default function Index({ auth, lapor }) {
                                 <th>Deskripsi</th>
                                 <th>Bukti</th>
                                 <th>Status</th>
+                                <th>Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,6 +89,19 @@ export default function Index({ auth, lapor }) {
                                                             >
                                                                 Terima
                                                             </Link>
+                                                        </li>
+                                                        <li>
+                                                            <Button
+                                                                variant="primary"
+                                                                className="dropdown-item"
+                                                                onClick={() =>
+                                                                    handleShow(
+                                                                        data
+                                                                    )
+                                                                }
+                                                            >
+                                                                Selesai
+                                                            </Button>
                                                         </li>
                                                         <li>
                                                             <Link
@@ -101,9 +143,19 @@ export default function Index({ auth, lapor }) {
                                                 </div>
                                             )}
                                         </td>
-                                        <td>{data.user.name}</td>
+                                        <td>
+                                            {data.user?.name} <br />
+                                            {data.user?.email} <br />
+                                            {data.user?.kelas?.nama} -
+                                            {data.user?.jurusan?.nama}
+                                        </td>
                                         <td>{data.jenis_kasus}</td>
-                                        <td>{data.siswa.name}</td>
+                                        <td>
+                                            {data.siswa.name} <br />
+                                            {data.siswa.email} <br />
+                                            {data.siswa.kelas.nama} -
+                                            {data.siswa.jurusan.nama}
+                                        </td>
                                         <td>{data.deskripsi}</td>
                                         <td>
                                             <a
@@ -118,6 +170,7 @@ export default function Index({ auth, lapor }) {
                                                 {data.status}
                                             </span>
                                         </td>
+                                        <td>{data.keterangan}</td>
                                     </tr>
                                 );
                             })}
@@ -125,6 +178,42 @@ export default function Index({ auth, lapor }) {
                     </table>
                 </div>
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Menyelesaikan Laporan</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="mb-3">
+                        <label
+                            htmlFor="balasan"
+                            className="form-label required"
+                        >
+                            Keterangan
+                        </label>
+                        <textarea
+                            placeholder="Masukkan keterangan..."
+                            name="keterangan"
+                            onChange={(e) =>
+                                setData("keterangan", e.target.value)
+                            }
+                            id="keterangan"
+                            className="form-control"
+                        ></textarea>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={selesaikanLaporan}
+                        type="button"
+                    >
+                        Kirim
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </AuthenticatedLayout>
     );
 }

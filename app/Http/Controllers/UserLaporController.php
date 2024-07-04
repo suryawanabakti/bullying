@@ -6,6 +6,8 @@ use App\Models\Lapor;
 use App\Http\Requests\StoreLaporRequest;
 use App\Http\Requests\UpdateLaporRequest;
 use App\Models\Siswa;
+use App\Models\User;
+use App\Service\FonnteService;
 
 class UserLaporController extends Controller
 {
@@ -14,7 +16,7 @@ class UserLaporController extends Controller
      */
     public function index()
     {
-        $lapor = Lapor::with('siswa', 'user')->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        $lapor = Lapor::with('siswa', 'user', 'siswa.jurusan', 'siswa.kelas')->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return inertia("User/Lapor/Index", [
             "lapor" => $lapor
         ]);
@@ -41,6 +43,11 @@ class UserLaporController extends Controller
             "bukti" => $request->file('gambar')->store('bukti')
         ]);
 
+        $nama = auth()->user()->name;
+        $nis = auth()->user()->email;
+
+        $user = User::where('id', $request->siswa_id)->first();
+        FonnteService::sendWa(env('WA_BK'), "Laporan Masuk\n\nPelapor \nNama : {$nama} \nNis : {$nis} \n\nPelaku \nNama : {$user->name}\nNis : {$user->email}\nKelas : {$user->kelas->nama}\nJurusan : {$user->jurusan->nama}\n\nDeskripsi \n{$request->deskripsi}");
         return redirect()->route("user.lapor.index");
     }
 

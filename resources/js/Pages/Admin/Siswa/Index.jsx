@@ -33,7 +33,10 @@ export default function Index({ auth, siswa }) {
                             return (
                                 <tr key={data.id}>
                                     <td>{data.nis}</td>
-                                    <td>{data.nama}</td>
+                                    <td>
+                                        {data.nama} <br />
+                                        {data.kelas.nama} - {data.kelas.nama}
+                                    </td>
                                     <td>{data.no_wa}</td>
                                     <td>
                                         <Link

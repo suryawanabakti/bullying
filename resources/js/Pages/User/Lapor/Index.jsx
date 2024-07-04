@@ -22,6 +22,7 @@ export default function Index({ auth, lapor }) {
                                 <th>Deskripsi</th>
                                 <th>Bukti</th>
                                 <th>Status</th>
+                                <th>Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +65,12 @@ export default function Index({ auth, lapor }) {
                                         </td>
 
                                         <td>{data.jenis_kasus}</td>
-                                        <td>{data.siswa.name}</td>
+                                        <td>
+                                            {data.siswa.name} -
+                                            {data.siswa.email} -
+                                            {data.siswa.kelas.nama} -
+                                            {data.siswa.jurusan.nama}
+                                        </td>
                                         <td>{data.deskripsi}</td>
                                         <td>
                                             <a
@@ -79,6 +85,7 @@ export default function Index({ auth, lapor }) {
                                                 {data.status}
                                             </span>
                                         </td>
+                                        <td>{data.keterangan}</td>
                                     </tr>
                                 );
                             })}

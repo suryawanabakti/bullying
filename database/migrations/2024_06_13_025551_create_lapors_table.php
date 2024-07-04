@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->string('bukti');
             $table->string('status')->default('proses');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -10,10 +10,10 @@ class ReferenceController extends Controller
 {
     public function getSiswa(Request $request)
     {
-        return User::where('name', 'LIKE', "%{$request->term}%")->get()->map(function ($siswa) {
+        return User::with('kelas', 'jurusan')->where('name', 'LIKE', "%{$request->term}%")->get()->map(function ($siswa) {
             return [
                 "value" => $siswa->id,
-                "label" => $siswa->name,
+                "label" => "$siswa->name - {$siswa->kelas->nama} - {$siswa->jurusan->nama}",
             ];
         });
     }
