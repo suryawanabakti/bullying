@@ -7,23 +7,48 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 export default function Index({ auth, lapor }) {
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
     const { data, setData, patch } = useForm({
         keterangan: "",
         lapor_id: "",
+        waktu: "",
     });
 
     const handleClose = () => setShow(false);
+    const handleClose2 = () => setShow2(false);
+
     const handleShow = (data) => {
         console.log(data);
         setData("lapor_id", data.id);
         setShow(true);
     };
+    const handleShow2 = (data) => {
+        console.log(data);
+        setData("lapor_id", data.id);
+        setShow2(true);
+    };
+
     const selesaikanLaporan = (e) => {
         e.preventDefault();
         patch(route("admin.lapor.selesai", data.lapor_id), {
             onSuccess: () => {
                 toast.success("Berhasil menyelesaikan laporan");
                 setShow(false);
+            },
+            onError: () => {
+                toast.error("Gagal menyelesaikan laporan");
+            },
+        });
+
+        console.log("data", data);
+    };
+
+    const menerimaLaporan = (e) => {
+        e.preventDefault();
+        patch(route("admin.lapor.terima", data.lapor_id), {
+            onSuccess: () => {
+                toast.success("Berhasil menerima laporan");
+                setShow2(false);
             },
             onError: () => {
                 toast.error("Gagal menyelesaikan laporan");
@@ -73,26 +98,22 @@ export default function Index({ auth, lapor }) {
                                                         aria-labelledby="dropdownMenuButton1"
                                                     >
                                                         <li>
-                                                            <Link
+                                                            <a
                                                                 className="dropdown-item"
-                                                                method="patch"
                                                                 as="button"
-                                                                href={route(
-                                                                    "admin.lapor.terima",
-                                                                    data.id
-                                                                )}
-                                                                onSuccess={() =>
-                                                                    toast.success(
-                                                                        "Berhasil menerima laporan"
+                                                                href="#terima"
+                                                                onClick={() =>
+                                                                    handleShow2(
+                                                                        data
                                                                     )
                                                                 }
                                                             >
                                                                 Terima
-                                                            </Link>
+                                                            </a>
                                                         </li>
                                                         <li>
-                                                            <Button
-                                                                variant="primary"
+                                                            <a
+                                                                href="#a"
                                                                 className="dropdown-item"
                                                                 onClick={() =>
                                                                     handleShow(
@@ -101,7 +122,7 @@ export default function Index({ auth, lapor }) {
                                                                 }
                                                             >
                                                                 Selesai
-                                                            </Button>
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <Link
@@ -119,24 +140,6 @@ export default function Index({ auth, lapor }) {
                                                                 }
                                                             >
                                                                 Tolak
-                                                            </Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link
-                                                                className="dropdown-item"
-                                                                method="patch"
-                                                                as="button"
-                                                                href={route(
-                                                                    "admin.lapor.selesai",
-                                                                    data.id
-                                                                )}
-                                                                onSuccess={() =>
-                                                                    toast.success(
-                                                                        "Berhasil menyelesaikan laporan"
-                                                                    )
-                                                                }
-                                                            >
-                                                                Selesai
                                                             </Link>
                                                         </li>
                                                     </ul>
@@ -208,6 +211,38 @@ export default function Index({ auth, lapor }) {
                     <Button
                         variant="primary"
                         onClick={selesaikanLaporan}
+                        type="button"
+                    >
+                        Kirim
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={show2} onHide={handleClose2}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Menerima Laporan</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="mb-3">
+                        <label
+                            htmlFor="balasan"
+                            className="form-label required"
+                        >
+                            Waktu
+                        </label>
+                        <input
+                            type="time"
+                            onChange={(e) => setData("waktu", e.target.value)}
+                        />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        Close
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={menerimaLaporan}
                         type="button"
                     >
                         Kirim
