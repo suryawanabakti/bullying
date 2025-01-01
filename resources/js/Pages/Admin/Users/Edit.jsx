@@ -15,10 +15,15 @@ export default function Edit({
     day,
     month,
     year,
+    kelas,
+    jurusan,
 }) {
     const { data, setData, put, errors, processing } = useForm({
         name: user.name,
-        email: user.email,
+        kelas_id: user.kelas_id,
+        jurusan_id: user.jurusan_id,
+        nis: user.email,
+        no_wa: user.no_wa,
         password: user.password,
         gender: user.gender,
         month: month,
@@ -216,16 +221,90 @@ export default function Edit({
                             }
                             errors={errors.photo}
                         />
+                            <div className="mb-3">
+                                    <label className="form-label">Kelas</label>
+                                    <select
+                                        name="kelas_id"
+                                        id="kelas_id"
+                                        className="form-select"
+                                        onChange={(e) =>
+                                            setData("kelas_id", e.target.value)
+                                        }
+                                        defaultValue={data.kelas_id}
+                                    >
+                                        <option value="">Pilih Kelas</option>
+                                        {kelas.map((data) => {
+                                            return (
+                                                <option
+                                                    key={data.id}
+                                                    value={data.id}
+                                                >
+                                                    {data.nama}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                    {errors.kelas_id && (
+                                        <small className="text-danger">
+                                            {errors.kelas_id}
+                                        </small>
+                                    )}
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Jurusan
+                                    </label>
+                                    <select
+                                        name="jurusan"
+                                        id="jurusan"
+                                        className="form-select"
+                                        onChange={(e) =>
+                                            setData(
+                                                "jurusan_id",
+                                                e.target.value
+                                            )
+                                        }
+                                        defaultValue={data.jurusan_id}
+                                    >
+                                        <option value="">Pilih Jurusan</option>
+                                        {jurusan.map((data) => {
+                                            return (
+                                                <option
+                                                    key={data.id}
+                                                    value={data.id}
+                                                >
+                                                    {data.nama}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                    {errors.jurusan_id && (
+                                        <small className="text-danger">
+                                            {errors.jurusan_id}
+                                        </small>
+                                    )}
+                                </div>
+                          <FormGroup
+                            required={true}
+                            label="Nomor WA"
+                            id="text"
+                            type="text"
+                            onChange={(e) => setData("no_wa", e.target.value)}
+                            value={data.no_wa}
+                            placeholder="Input Nomor WA..."
+                            errors={errors.no_wa}
+                        />
                         <FormGroup
                             required={true}
-                            label="Email"
-                            id="email"
-                            type="email"
-                            onChange={(e) => setData("email", e.target.value)}
-                            value={data.email}
-                            placeholder="Iput email..."
-                            errors={errors.email}
+                            label="NIS"
+                            id="text"
+                            type="text"
+                            onChange={(e) => setData("nis", e.target.value)}
+                            value={data.nis}
+                            placeholder="Iput nis..."
+                            errors={errors.nis}
                         />
+
                         <FormGroup
                             required={true}
                             label="Password"

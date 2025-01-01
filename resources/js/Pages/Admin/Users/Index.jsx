@@ -31,10 +31,10 @@ export default function Index({ auth, users, search }) {
         <div className="row g-2 align-items-center">
             <FlashMessage flash={flash} show={show} setShow={setShow} />
             <div className="col">
-                <h2 className="page-title">Pelapor</h2>
+                <h2 className="page-title">Siswa</h2>
                 <div className="text-muted mt-1">
                     {users.meta.from}-{users.meta.to} dari {users.meta.total}{" "}
-                    pelapor.
+                    siswa.
                 </div>
             </div>
             <div className="col-auto ms-auto d-print-none">
@@ -62,7 +62,7 @@ export default function Index({ auth, users, search }) {
 
     return (
         <AuthenticatedLayout user={auth.user} header={header}>
-            <Head title="Users" />
+            <Head title="Siswa" />
             <div className="row row-cards">
                 {users.data.map((user) => {
                     return (
@@ -90,16 +90,9 @@ export default function Index({ auth, users, search }) {
                                         {user.gender}
                                     </div>
                                     <div className="mt-3">
-                                        {user.roles.map((role) => {
-                                            return (
-                                                <span
-                                                    className="badge bg-purple-lt text-capitalize"
-                                                    key={role.id}
-                                                >
-                                                    {role.name}
-                                                </span>
-                                            );
-                                        })}
+                                        <span className="badge bg-purple-lt text-capitalize">
+                                            {user.email}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="d-flex">

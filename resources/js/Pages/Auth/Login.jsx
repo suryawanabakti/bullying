@@ -34,7 +34,7 @@ export default function Login({ status, canResetPassword }) {
             )}
             <div className="page page-center">
                 <div className="container container-tight py-4">
-                    <div className="text-center mb-4">
+                    <div className="text-center ">
                         <a
                             href="."
                             className="navbar-brand navbar-brand-autodark"
@@ -46,6 +46,9 @@ export default function Login({ status, canResetPassword }) {
                             />
                         </a>
                     </div>
+                    <center>
+                        <h2>SMK Kartika XX-1 Makassar</h2>
+                    </center>
                     <div className="card card-md">
                         <div className="card-body">
                             <h2 className="h2 text-center mb-4">

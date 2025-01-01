@@ -8,6 +8,7 @@ import { useState } from "react";
 export default function Index({ auth, lapor }) {
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
+    const [show3, setShow3] = useState(false);
     const { data, setData, patch } = useForm({
         keterangan: "",
         lapor_id: "",
@@ -16,6 +17,7 @@ export default function Index({ auth, lapor }) {
 
     const handleClose = () => setShow(false);
     const handleClose2 = () => setShow2(false);
+    const handleClose3 = () => setShow2(false);
 
     const handleShow = (data) => {
         console.log(data);
@@ -26,6 +28,11 @@ export default function Index({ auth, lapor }) {
         console.log(data);
         setData("lapor_id", data.id);
         setShow2(true);
+    };
+    const handleShow3 = (data) => {
+        console.log(data);
+        setData("lapor_id", data.id);
+        setShow3(true);
     };
 
     const selesaikanLaporan = (e) => {
@@ -57,6 +64,20 @@ export default function Index({ auth, lapor }) {
 
         console.log("data", data);
     };
+    const tolakLaporan = (e) => {
+        e.preventDefault();
+        patch(route("admin.lapor.tolak", data.lapor_id), {
+            onSuccess: () => {
+                toast.success("Berhasil menolak laporan");
+                setShow3(false);
+            },
+            onError: () => {
+                toast.error("Gagal menolak laporan");
+            },
+        });
+
+        console.log("data", data);
+    };
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Laporan" />
@@ -69,6 +90,7 @@ export default function Index({ auth, lapor }) {
                         <thead>
                             <tr>
                                 <th></th>
+                                <th>Tanggal</th>
                                 <th>Pelapor</th>
                                 <th>Jenis kasus</th>
                                 <th>Siswa Pelaku</th>
@@ -113,6 +135,15 @@ export default function Index({ auth, lapor }) {
                                                         </li>
                                                         <li>
                                                             <a
+                                                                className="dropdown-item"
+                                                                href={`/lapor/${data.id}/cetak`}
+                                                                target="_blank"
+                                                            >
+                                                                Cetak
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a
                                                                 href="#a"
                                                                 className="dropdown-item"
                                                                 onClick={() =>
@@ -125,27 +156,24 @@ export default function Index({ auth, lapor }) {
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <Link
+                                                            <a
                                                                 className="dropdown-item"
-                                                                method="patch"
                                                                 as="button"
-                                                                href={route(
-                                                                    "admin.lapor.tolak",
-                                                                    data.id
-                                                                )}
-                                                                onSuccess={() =>
-                                                                    toast.success(
-                                                                        "Berhasil menolak laporan"
+                                                                href="#terima"
+                                                                onClick={() =>
+                                                                    handleShow3(
+                                                                        data
                                                                     )
                                                                 }
                                                             >
                                                                 Tolak
-                                                            </Link>
+                                                            </a>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             )}
                                         </td>
+                                        <td>{data.created_at}</td>
                                         <td>
                                             {data.user?.name} <br />
                                             {data.user?.email} <br />
@@ -154,10 +182,10 @@ export default function Index({ auth, lapor }) {
                                         </td>
                                         <td>{data.jenis_kasus}</td>
                                         <td>
-                                            {data.siswa.name} <br />
-                                            {data.siswa.email} <br />
-                                            {data.siswa.kelas.nama} -
-                                            {data.siswa.jurusan.nama}
+                                            {data.siswa?.name} <br />
+                                            {data.siswa?.email} <br />
+                                            {data.siswa?.kelas?.nama} -
+                                            {data.siswa?.jurusan?.nama}
                                         </td>
                                         <td>{data.deskripsi}</td>
                                         <td>
@@ -165,7 +193,14 @@ export default function Index({ auth, lapor }) {
                                                 target="_blank"
                                                 href={`/storage/${data.bukti}`}
                                             >
-                                                Lihat Bukti
+                                                Lihat Bukti Foto
+                                            </a>
+                                            <br />
+                                            <a
+                                                target="_blank"
+                                                href={`/storage/${data.video}`}
+                                            >
+                                                Lihat Bukti Video
                                             </a>
                                         </td>
                                         <td>
@@ -243,6 +278,41 @@ export default function Index({ auth, lapor }) {
                     <Button
                         variant="primary"
                         onClick={menerimaLaporan}
+                        type="button"
+                    >
+                        Kirim
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={show3} onHide={handleClose3}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Tolak Laporan</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="mb-3">
+                        <label
+                            htmlFor="balasan"
+                            className="form-label required"
+                        >
+                            keterangan
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            onChange={(e) =>
+                                setData("keterangan", e.target.value)
+                            }
+                        />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose2}>
+                        Close
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={tolakLaporan}
                         type="button"
                     >
                         Kirim

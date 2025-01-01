@@ -17,6 +17,7 @@ export default function Register({ kelas, jurusan }) {
         show_password: false,
         jurusan_id: "",
         kelas_id: "",
+        photo: "",
     });
 
     useEffect(() => {
@@ -75,7 +76,7 @@ export default function Register({ kelas, jurusan }) {
                                         Nomor WA
                                     </label>
                                     <input
-                                        type="number"
+                                        type="text"
                                         className="form-control"
                                         placeholder="Your NO. WA"
                                         autoComplete="no_wa"
@@ -103,6 +104,23 @@ export default function Register({ kelas, jurusan }) {
                                     {errors.email && (
                                         <small className="text-danger">
                                             {errors.email}
+                                        </small>
+                                    )}
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Photo</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        placeholder="Photo"
+                                        autoComplete="photo"
+                                        onChange={(e) =>
+                                            setData("photo", e.target.files[0])
+                                        }
+                                    />
+                                    {errors.photo && (
+                                        <small className="text-danger">
+                                            {errors.photo}
                                         </small>
                                     )}
                                 </div>
@@ -149,7 +167,7 @@ export default function Register({ kelas, jurusan }) {
                                             )
                                         }
                                     >
-                                        <option value="">Pilih Kelas</option>
+                                        <option value="">Pilih Jurusan</option>
                                         {jurusan.map((data) => {
                                             return (
                                                 <option
@@ -280,9 +298,9 @@ export default function Register({ kelas, jurusan }) {
                         <div className="hr-text">Atau</div>
                     </div>
                     <div className="text-center text-secondary mt-3">
-                        Belum punya akun ?
-                        <Link href="/register" tabIndex={-1}>
-                            Daftar disini
+                        Sudah punya akun ?
+                        <Link href="/login" tabIndex={-1}>
+                            Login disini
                         </Link>
                     </div>
                 </div>

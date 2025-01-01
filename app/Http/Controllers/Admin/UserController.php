@@ -8,6 +8,9 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\Admin\UserResource;
 use Carbon\Carbon;
+use App\Models\Jurusan;
+use App\Models\Kelas;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,7 +18,8 @@ class UserController extends Controller
     {
         $users = User::role('user')->orderBy('updated_at', 'desc');
         if (request('search')) {
-            $users->where('name', 'LIKE', '%' . request('search') . '%');
+            $users->where('name', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('email', 'LIKE', '%' . request('search') . '%');
         }
         // return UserResource::collection($users);
         return inertia("Admin/Users/Index", ["users" => UserResource::collection($users->paginate(8)), "search" => request('search')]);
@@ -80,8 +84,9 @@ class UserController extends Controller
                 "value" => $month,
             ];
         }
-
-        return inertia("Admin/Users/Create", ["years" => $years, "days" => $days, "months" => $months]);
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
+        return inertia("Admin/Users/Create", ["years" => $years, "days" => $days, "months" => $months, "kelas" => $kelas, "jurusan" => $jurusan]);
     }
 
     public function store(StoreUserRequest $request)
@@ -91,6 +96,7 @@ class UserController extends Controller
         if ($request->photo) {
             $data['photo'] = $request->file('photo')->store('photo');
         }
+        $data['email'] = $request->nis;
         User::create($data)->assignRole("user");
 
         return redirect()->route('admin.users.index')->with([
@@ -169,11 +175,23 @@ class UserController extends Controller
         $month = (new Carbon($user->date_of_birth))->format('m');
         $year = (new Carbon($user->date_of_birth))->format('Y');
 
-        return inertia("Admin/Users/Edit", ["user" => $user, "years" => $years, "months" => $months, "days" => $days, "day" => $day, "month" => $month, "year" => $year]);
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
+        return inertia("Admin/Users/Edit", ["user" => $user, "years" => $years, "months" => $months, "days" => $days, "day" => $day, "month" => $month, "year" => $year, "kelas" => $kelas, "jurusan" => $jurusan]);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
+        $request->validate([
+            "name" => ['required', 'max:255'],
+            'nis' => 'required|unique:users,email,' . $user->id,
+            // 'nis' => ['required', 'string', 'lowercase', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            "gender" => ['in:female,male'],
+            "month" => ['required'],
+            "day" => ['required'],
+            "year" => ['required'],
+            "photo" => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp']
+        ]);
         $data = $request->all();
         $data['date_of_birth'] = "{$request->year}-{$request->month}-{$request->day}";
         if ($request->photo) {
@@ -183,6 +201,8 @@ class UserController extends Controller
         if ($request->password) {
             $request->validate(['password' => 'confirmed', 'min:8']);
         }
+
+        $data['email'] = $request->nis;
         $user->update($data);
         activity()->withProperties(["name" => $user->name, "id" => $user->id])->log('I have edited user ' . $user->name);
         return redirect()->route('admin.users.index')->with([

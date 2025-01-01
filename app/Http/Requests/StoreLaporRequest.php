@@ -26,6 +26,7 @@ class StoreLaporRequest extends FormRequest
             "siswa_id" => 'required',
             "deskripsi" => 'required',
             "gambar" => 'required',
+            'video' => 'required|file',
         ];
     }
 }

@@ -35,12 +35,14 @@ class UserLaporController extends Controller
      */
     public function store(StoreLaporRequest $request)
     {
+        $path = $request->file('video')->store('videos');
         Lapor::create([
             "user_id" => auth()->id(),
             "jenis_kasus" => $request->jenis_kasus,
             "pelaku_id" => $request->siswa_id,
             "deskripsi" => $request->deskripsi,
-            "bukti" => $request->file('gambar')->store('bukti')
+            "bukti" => $request->file('gambar')->store('bukti'),
+            "video" => $path,
         ]);
 
         $nama = auth()->user()->name;

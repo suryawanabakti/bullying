@@ -44,9 +44,11 @@ class RegisteredUserController extends Controller
             'jurusan_id' => 'required',
             'email' => 'required|string|lowercase|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'no_wa' => ['required']
+            'no_wa' => ['required', 'unique:users,no_wa'],
+            'photo' => ['required', 'image'],
         ]);
         $user = User::create([
+            'photo' => $request->file('photo')->store('photo'),
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

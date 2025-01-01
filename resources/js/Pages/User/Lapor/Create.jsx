@@ -16,6 +16,7 @@ export default function Create({ auth }) {
         siswa_id: "",
         deskripsi: "",
         gambar: "",
+        video: "",
     });
 
     const submit = (e) => {
@@ -116,6 +117,24 @@ export default function Create({ auth }) {
                             {errors.gambar && (
                                 <small className="text-danger">
                                     {errors.gambar}
+                                </small>
+                            )}
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="video" className="form-label">
+                                Masukkan video sebagai bukti
+                            </label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                onChange={(e) =>
+                                    setData("video", e.target.files[0])
+                                }
+                                name="video"
+                            />
+                            {errors.video && (
+                                <small className="text-danger">
+                                    {errors.video}
                                 </small>
                             )}
                         </div>

@@ -113,16 +113,18 @@ export default function Navigation({ user }) {
                                 <IconSun className="icon" />
                             </a>
                             <div className="nav-item dropdown d-none d-md-flex me-3">
-                                <a
-                                    href="#"
-                                    className="nav-link px-0"
-                                    data-bs-toggle="dropdown"
-                                    tabIndex={-1}
-                                    aria-label="Show notifications"
-                                >
-                                    <IconBell className="icon" />
-                                    <span className="badge bg-red" />
-                                </a>
+                                {/* {user.roles[0].name == "user" && (
+                                    <a
+                                        href="#"
+                                        className="nav-link px-0"
+                                        data-bs-toggle="dropdown"
+                                        tabIndex={-1}
+                                        aria-label="Show notifications"
+                                    >
+                                        <IconBell className="icon" />
+                                    </a>
+                                )} */}
+
                                 <div className="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
                                     <div className="card">
                                         <div className="card-header">
@@ -169,10 +171,7 @@ export default function Navigation({ user }) {
                                                             </div>
                                                             <div className="col text-truncate">
                                                                 <Link
-                                                                    href={route(
-                                                                        "notifications.show",
-                                                                        data.id
-                                                                    )}
+                                                                    href={"#"}
                                                                     className="text-capitalize text-body d-block"
                                                                 >
                                                                     {data.type}
@@ -223,20 +222,15 @@ export default function Navigation({ user }) {
                                 </div>
                             </a>
                             <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                <Link
-                                    href={route("notifications.index")}
-                                    className="dropdown-item"
-                                >
-                                    Notifications
-                                </Link>
-                                <Link
-                                    href={route("activities.index")}
-                                    className="dropdown-item"
-                                >
-                                    Activities
-                                </Link>
+                                {/* {user.roles[0].name == "user" && (
+                                    <Link
+                                        href={route("notifications.index")}
+                                        className="dropdown-item"
+                                    >
+                                        Notifications
+                                    </Link>
+                                )} */}
 
-                                <div className="dropdown-divider" />
                                 <Link
                                     href={route("profile.edit")}
                                     className="dropdown-item"

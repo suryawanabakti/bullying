@@ -6,17 +6,18 @@ import toast from "react-hot-toast";
 export default function Index({ auth, lapor }) {
     return (
         <AuthenticatedLayout user={auth.user}>
-            <Head title="Index" />
+            <Head title="Daftar laporan" />
             <div className="card">
                 <div className="card-header">
-                    <h4 className="card-title">Daftar Laporan</h4>
+                    <h4 className="card-title">
+                        Daftar Laporan {auth.user.name}
+                    </h4>
                 </div>
                 <div className="card-body">
                     <table className="table table-stripped table-hover">
                         <thead>
                             <tr>
                                 <th></th>
-
                                 <th>Jenis kasus</th>
                                 <th>Siswa Pelaku</th>
                                 <th>Deskripsi</th>
@@ -43,22 +44,25 @@ export default function Index({ auth, lapor }) {
                                                     aria-labelledby="dropdownMenuButton1"
                                                 >
                                                     <li>
-                                                        <Link
-                                                            className="dropdown-item"
-                                                            method="delete"
-                                                            as="button"
-                                                            href={route(
-                                                                "admin.lapor.destroy",
-                                                                data.id
-                                                            )}
-                                                            onSuccess={() =>
-                                                                toast.success(
-                                                                    "Berhasil hapus lapor"
-                                                                )
-                                                            }
-                                                        >
-                                                            Batalkan
-                                                        </Link>
+                                                        {data.status ==
+                                                            "proses" && (
+                                                            <Link
+                                                                className="dropdown-item"
+                                                                method="delete"
+                                                                as="button"
+                                                                href={route(
+                                                                    "admin.lapor.destroy",
+                                                                    data.id
+                                                                )}
+                                                                onSuccess={() =>
+                                                                    toast.success(
+                                                                        "Berhasil hapus lapor"
+                                                                    )
+                                                                }
+                                                            >
+                                                                Batalkan
+                                                            </Link>
+                                                        )}
                                                     </li>
                                                 </ul>
                                             </div>
@@ -66,10 +70,10 @@ export default function Index({ auth, lapor }) {
 
                                         <td>{data.jenis_kasus}</td>
                                         <td>
-                                            {data.siswa.name} -
-                                            {data.siswa.email} -
-                                            {data.siswa.kelas.nama} -
-                                            {data.siswa.jurusan.nama}
+                                            {data.siswa?.name} <br />
+                                            {data.siswa?.email} <br />
+                                            {data.siswa?.kelas.nama} <br />
+                                            {data.siswa?.jurusan.nama} <br />
                                         </td>
                                         <td>{data.deskripsi}</td>
                                         <td>
@@ -77,7 +81,14 @@ export default function Index({ auth, lapor }) {
                                                 target="_blank"
                                                 href={`/storage/${data.bukti}`}
                                             >
-                                                Lihat Bukti
+                                                Lihat Bukti Foto
+                                            </a>{" "}
+                                            <br />
+                                            <a
+                                                target="_blank"
+                                                href={`/storage/${data.video}`}
+                                            >
+                                                Lihat Bukti Video
                                             </a>
                                         </td>
                                         <td>
